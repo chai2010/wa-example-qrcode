@@ -1,8 +1,10 @@
 // 版权 @2023 qrcode 作者。保留所有权利。
 
-import "canvas"
-import "image"
-import "encoding/qrcode"
+import (
+	"encoding/qrcode"
+	"image"
+	"js/canvas"
+)
 
 func main {
 	println("你好，凹语言！")
@@ -11,8 +13,8 @@ func main {
 	ctx, _ := c.GetContext2D()
 
 	const size = 400
-	m := image.NewRGBA(image.Rect(0, 0, size, size))
-	println(m.Rect.Dx(), m.Rect.Dy())
+	m := image.NewRGBA(size, size)
+	println(m.Width, m.Height)
 
 	qrImg, err := qrcode.Encode("https://wa-lang.org/", qrcode.L)
 	if err != nil {
@@ -34,6 +36,6 @@ func main {
 
 	ctx.PutImageData(
 		raw(m.Pix), 0, 0, 0, 0,
-		f32(m.Rect.Dx()), f32(m.Rect.Dy()),
+		f32(m.Width), f32(m.Height),
 	)
 }
